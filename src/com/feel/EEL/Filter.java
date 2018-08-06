@@ -1,11 +1,11 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
 
 public class Filter {
 	private ArrayList<EntityExtractor> entityExtractors = new ArrayList<>();

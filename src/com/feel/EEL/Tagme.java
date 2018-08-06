@@ -1,12 +1,12 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -26,29 +26,32 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
 
-public class WAT extends EntityExtractor {
+/**
+ * @author Jose
+ *
+ *
+ */
+
+public class Tagme extends EntityExtractor {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
-
-	public WAT(String serviceURL, String token, Double minConfidence) {
+	public Tagme(String serviceURL, String token, Double minConfidence) {
 
 		super.setServiceURL(serviceURL);
 		super.setTokenKey(token);
 		super.setMinConfidence(minConfidence);
-		super.setName("WAT");
+		super.setName("TagMe");
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		WAT service = new WAT("https://wat.d4science.org/wat/tag/tag",
-				"23e8a7b9-57f0-4167-8f33-3adab8a485d5-843339462", .01);
+		Tagme service = new Tagme("https://tagme.d4science.org/tagme/tag",
+				"23e8a7b9-57f0-4167-8f33-3adab8a485d5-843339462", .2);
 
 		String sentence = "Bryan Lee Cranston is an American actor.  He is known for portraying \"Walter White\" in the drama series Breaking Bad.";
-		
-		sentence ="Bryan Lee Cranston is an American actor";
 		ArrayList<Entity> me = service.getEntities(sentence);
 
 		for (Entity en : me) {
@@ -75,10 +78,10 @@ public class WAT extends EntityExtractor {
 		return super.getEntities();
 	}
 
-	@SuppressWarnings("deprecation")
+	// this is not a convenient implementation for production
 	public String sendPost(String sentence)
 			throws UnsupportedEncodingException, IOException, NoSuchAlgorithmException, KeyManagementException {
-		
+
 		TrustManager[] trustAllCerts = new TrustManager[] { new X509ExtendedTrustManager() {
 			@Override
 			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -132,24 +135,27 @@ public class WAT extends EntityExtractor {
 		};
 		// Install the all-trusting host verifier
 		HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-		/*
-		 * end of the fix
-		 */
-		String urlParameters = "";
 
-		urlParameters += "gcube-token=" + super.getTokenKey();
-		urlParameters += "&text=" + URLEncoder.encode(sentence);
-		urlParameters += "&lang=en";
-		
-		
-		
-		URL url = new URL(super.getServiceURL()+"?"+urlParameters);
+		URL url = new URL(super.getServiceURL());
 
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
 		// add reuqest header
-		con.setRequestMethod("GET");
+		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
+		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+		String urlParameters = "";
+
+		urlParameters += "gcube-token=" + super.getTokenKey();
+		urlParameters += "&text=" + sentence;
+
+		// Send post request
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(urlParameters);
+		wr.flush();
+		wr.close();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -174,7 +180,7 @@ public class WAT extends EntityExtractor {
 
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONArray msg = (JSONArray) jsonObject.get("annotations");
-
+			System.out.println(jsonObject.toString());
 			int count = msg.size(); // get totalCount of all jsonObjects
 			for (int i = 0; i < count; i++) { // iterate through jsonArray
 				JSONObject objc = (JSONObject) msg.get(i); // get jsonObject @ i position

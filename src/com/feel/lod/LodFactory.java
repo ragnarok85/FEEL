@@ -1,4 +1,4 @@
-package com.cinvestav.lod;
+package com.feel.lod;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -13,11 +13,17 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.vocabulary.RDF;
 
-import com.cinvestav.Entity;
-import com.cinvestav.Sentence;
+import com.feel.Entity;
+import com.feel.Sentence;
+
+/**
+ * @author Jose
+ *
+ *
+ */
 
 public class LodFactory {
-	String defaultUri = "http:tamps.cinvesetav.mx/";
+	String defaultUri = "http:www.eelFramework.com/feel";
 	NIFProperties nifProperties;
 	NIFResources nifResources;
 	ITSRDFProperties itsrdfProperties;

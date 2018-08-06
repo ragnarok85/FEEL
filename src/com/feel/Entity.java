@@ -1,11 +1,11 @@
-package com.cinvestav;
+package com.feel;
 
 import java.io.Serializable;
 
 /**
  *
- * @author Jose Clase que representa una entidad nombrada con identificador de
- *         una base de conocimiento como dbpedia, freebase o yago, entre otras
+ * @author Jose 
+ * 
  */
 public class Entity implements Serializable{
 

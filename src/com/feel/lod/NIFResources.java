@@ -1,9 +1,14 @@
-package com.cinvestav.lod;
+package com.feel.lod;
 
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 
-//http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+/**
+ * @author Jose
+ *
+ *
+ */
+
 public class NIFResources {
 	private Resource word;
 	private Resource phrase;

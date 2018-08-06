@@ -1,4 +1,4 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
 
 /**
  *
@@ -43,13 +43,11 @@ public class Babelfy extends EntityExtractor {
 		EntityExtractor babelService = new Babelfy();
 
 		babelService.setServiceURL("http://babelfy.io/v1/disambiguate");
-		// babelService.setTokenKey("10564323-95d6-4d00-8043-2a19a76b0a0e");
 
 		babelService.setTokenKey("dc41cd14-12b7-45d9-9b5b-2b51e9394864");
 
 		String text = "Bryan Lee Cranston is an American actor.  He is known for portraying \"Walter White\" in the drama series Breaking Bad.";
 
-		//text="New York city is located in USA";
 		ArrayList<Entity> me = babelService.getEntities(text);
 
 		for (Entity en : me) {
@@ -62,11 +60,9 @@ public class Babelfy extends EntityExtractor {
 
 	@Override
 	public ArrayList<Entity> getEntities(String sentence) {
-		// entities = new ArrayList<>(); // initialize array
 		super.initializeEntities();
 		String response = this.sendPost(sentence);
 
-//		System.out.println(response);
 
 		this.readOutput("{\"concepts\":" + response + "}", sentence); // feed entities array
 		super.removeMentions();
@@ -82,7 +78,6 @@ public class Babelfy extends EntityExtractor {
 
 		HttpGet get = new HttpGet(super.getServiceURL());
 
-		// get.setHeader("Content-Type", "application/x-zip");
 		get.setHeader("Accept-Encoding", "gzip");
 
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();

@@ -1,9 +1,13 @@
-package com.cinvestav.lod;
+package com.feel.lod;
 
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.ResourceFactory;
 
-//http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#
+/**
+ * @author Jose
+ *
+ *
+ */
 public class NIFProperties {
 	private Property anchorOf;
 	private Property beginIndex;

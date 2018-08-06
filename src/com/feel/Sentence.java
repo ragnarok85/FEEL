@@ -1,11 +1,11 @@
 
-package com.cinvestav;
+package com.feel;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author jose Usado para guardar las sentencias de un documento y su POS
+ * @author jose 
  */
 public class Sentence {
 

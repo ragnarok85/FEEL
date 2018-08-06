@@ -1,6 +1,6 @@
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.io.ByteArrayInputStream"%>
-<%@page import="com.cinvestav.EEL.EELIntegration"%>
+<%@page import="com.feel.EEL.EELIntegration"%>
 <%@page import="java.io.InputStreamReader"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.util.Iterator"%>

@@ -1,9 +1,14 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
+
+/**
+*
+* @author jose
+*/
 
 public abstract class EntityExtractor {
 	private String USER_AGENT = "Mozilla/5.0";
@@ -79,7 +84,6 @@ public abstract class EntityExtractor {
 	}
 
 	public EntityExtractor() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public abstract ArrayList<Entity> getEntities(String sentence); // probably from a web service

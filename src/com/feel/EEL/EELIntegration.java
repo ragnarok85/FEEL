@@ -1,4 +1,9 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
+
+/**
+*
+* @author jose
+*/
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,9 +12,9 @@ import java.util.ListIterator;
 
 import org.apache.jena.rdf.model.Model;
 
-import com.cinvestav.Entity;
-import com.cinvestav.Sentence;
-import com.cinvestav.lod.LodFactory;
+import com.feel.Entity;
+import com.feel.Sentence;
+import com.feel.lod.LodFactory;
 
 public class EELIntegration {
 

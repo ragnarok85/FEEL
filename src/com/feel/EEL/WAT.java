@@ -1,12 +1,12 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -26,27 +26,35 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
 
-public class Tagme extends EntityExtractor {
+/**
+ * @author Jose
+ *
+ *
+ */
+
+public class WAT extends EntityExtractor {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
-	public Tagme(String serviceURL, String token, Double minConfidence) {
+
+	public WAT(String serviceURL, String token, Double minConfidence) {
 
 		super.setServiceURL(serviceURL);
 		super.setTokenKey(token);
 		super.setMinConfidence(minConfidence);
-		super.setName("TagMe");
+		super.setName("WAT");
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		Tagme service = new Tagme("https://tagme.d4science.org/tagme/tag",
-				"23e8a7b9-57f0-4167-8f33-3adab8a485d5-843339462", .2);
+		WAT service = new WAT("https://wat.d4science.org/wat/tag/tag",
+				"23e8a7b9-57f0-4167-8f33-3adab8a485d5-843339462", .01);
 
 		String sentence = "Bryan Lee Cranston is an American actor.  He is known for portraying \"Walter White\" in the drama series Breaking Bad.";
-	//	sentence = "Information you have set to public will appear automatically in this section, which you can change by editing the new, inline privacy settings.";
+		
+		sentence ="Bryan Lee Cranston is an American actor";
 		ArrayList<Entity> me = service.getEntities(sentence);
 
 		for (Entity en : me) {
@@ -60,7 +68,6 @@ public class Tagme extends EntityExtractor {
 
 	@Override
 	public ArrayList<Entity> getEntities(String sentence) {
-		// entities = new ArrayList<>(); // initialize array
 		super.initializeEntities();
 		String response = null;
 		try {
@@ -74,10 +81,10 @@ public class Tagme extends EntityExtractor {
 		return super.getEntities();
 	}
 
-	// this is not a convenient implementation for production
+	@SuppressWarnings("deprecation")
 	public String sendPost(String sentence)
 			throws UnsupportedEncodingException, IOException, NoSuchAlgorithmException, KeyManagementException {
-
+		
 		TrustManager[] trustAllCerts = new TrustManager[] { new X509ExtendedTrustManager() {
 			@Override
 			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -131,27 +138,24 @@ public class Tagme extends EntityExtractor {
 		};
 		// Install the all-trusting host verifier
 		HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		/*
+		 * end of the fix
+		 */
+		String urlParameters = "";
 
-		URL url = new URL(super.getServiceURL());
+		urlParameters += "gcube-token=" + super.getTokenKey();
+		urlParameters += "&text=" + URLEncoder.encode(sentence);
+		urlParameters += "&lang=en";
+		
+		
+		
+		URL url = new URL(super.getServiceURL()+"?"+urlParameters);
 
 		HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 
 		// add reuqest header
-		con.setRequestMethod("POST");
+		con.setRequestMethod("GET");
 		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-		String urlParameters = "";
-
-		urlParameters += "gcube-token=" + super.getTokenKey();
-		urlParameters += "&text=" + sentence;
-
-		// Send post request
-		con.setDoOutput(true);
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
-		wr.flush();
-		wr.close();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -176,7 +180,7 @@ public class Tagme extends EntityExtractor {
 
 			JSONObject jsonObject = (JSONObject) obj;
 			JSONArray msg = (JSONArray) jsonObject.get("annotations");
-			System.out.println(jsonObject.toString());
+
 			int count = msg.size(); // get totalCount of all jsonObjects
 			for (int i = 0; i < count; i++) { // iterate through jsonArray
 				JSONObject objc = (JSONObject) msg.get(i); // get jsonObject @ i position

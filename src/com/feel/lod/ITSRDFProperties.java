@@ -1,8 +1,14 @@
-package com.cinvestav.lod;
+package com.feel.lod;
 
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.ResourceFactory;
-//http://www.w3.org/2005/11/its/rdf#
+
+/**
+ * @author Jose
+ *
+ *
+ */
+
 public class ITSRDFProperties {
 	private Property taIdentRef;
 	private Property taClassRef;

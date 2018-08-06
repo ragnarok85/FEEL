@@ -1,4 +1,4 @@
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.apache.jena.query.Syntax;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 
-import com.cinvestav.Sentence;
+import com.feel.Sentence;
 
 
 /**
@@ -63,11 +63,8 @@ public class ProcessDataset {
 		String sentence = "";
 		try {
 			ResultSet results = qexec.execSelect();
-			// int sentenceCounter = 1;
 			while (results.hasNext()) {
 				QuerySolution soln = results.nextSolution();
-
-				// responseURI = soln.getResource("sentenceID").getURI();
 
 				sentence = soln.getLiteral("sentence").toString();//
 				String ne = soln.getResource("URI").getURI();

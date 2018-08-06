@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.cinvestav.EEL;
+package com.feel.EEL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.cinvestav.Entity;
+import com.feel.Entity;
 
 /**
  *
@@ -47,7 +42,6 @@ public class DBPediaSpotlight extends EntityExtractor {
 		
 		text="Dirk Kuyt admits Holland could not have asked for a better start to their qualifying campaign as they prepare for Norway.\\n\\nOranje have won both of their opening matches to sit at the top of Group Nine with a two-point advantage - and a game in hand - over nearest challengers Scotland.\\n\\nBert van Marwijk's men have already claimed the scalps of FYR Macedonia and Iceland, but they face a much sterner test against the Norwegians in Oslo.\\n\\nYet Kuyt is hopeful they can maintain their 100% qualifying record at the expense of Aage Hareide's men.\\n\\n\\\"We have got the start we wanted in World Cup qualifying. Six points from two matches,\\\" the Liverpool forward told Dagbladet.\\n\\n\\\"It would a be a dream it we could make that nine points on Wednesday evening. Obviously that's what we're aiming for.\\\"\\n\\nNorway's 0-0 draw in Scotland last Saturday has left the Scandinavians four points behind Holland in the table, although Kuyt is not expecting his team to have things their own way in Oslo.\\n\\n\\\"We know what we'll be up against in Norway,\\\" he continued. \\\"It's difficult playing at Ullevaal, very difficult.\\n\\n\\\"The Norwegian side has a lot of quality and I heard they played well in Scotland. A goalless draw at Hampden Park is very respectable.\\\"\\n\\nThe match will also give Kuyt the chance to play against former Liverpool team-mate John Arne Riise - a prospect the ex-Feyenoord man is relishing.\\n\\n\\\"He's a good friend and sometimes we used to play golf together. He's not a bad golfer either and often beat me. That gives me something to avenge in Oslo,\\\" Kuyt joked.\\n\\nFor Ajax striker Klaas-Jan Huntelaar, victory on Wednesday will give Holland the chance to start to thinking about South Africa in two years time.\\n\\n\\\"The prospects are rosy, that much is clear,\\\" he told Sportweek.\\n\\n\\\"It's a bit premature to be packing our suitcases, but if we get a good result against Norway we will have come along way in our journey.\\n\\n\\\"I have a good feeling about it, but we must first achieve it of course.\\\"\\n";
 		
-		//text = "New York city is located in USA";
 		Long intime = System.currentTimeMillis();
 		ArrayList<Entity> me = http.getEntities(text);
 		Long endtime = System.currentTimeMillis();
@@ -58,7 +52,6 @@ public class DBPediaSpotlight extends EntityExtractor {
 		for (Entity en : me) {
 			System.out.println("Mention " + en.getSurfaceText() + " startEnd:" + en.getStart() + "," + en.getEnd()
 					+ " URI " + en.getURI());
-			// System.out.println("URI " + en.getURI());
 
 		}
 	}
