@@ -1,2 +1,2 @@
 # FEEL
-FEEL: Frame for the Integration of Entity Extraction and Linking systems
+FEEL: Framework for the integration of Entity Extraction and Linking systems
